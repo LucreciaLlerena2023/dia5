@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Presentación académica del proyecto JDMOTORS sobre colaboración y comunicación en equipos ágiles de desarrollo de software.">
+  <title>JDMOTORS · Colaboración y comunicación en equipos ágiles</title>
+
+  <!-- NO TOCAR DESDE AQUÍ: estilos y estructura técnica -->
+  <style>
+    :root{
+      --carbon:#000000;
+      --paper:#ffffff;
+      --sky:#dceeff;
+      --gray:#cccccc;
+      --mist:#e9e9e9;
+      --blue:#4da2ff;
+      --mint:#55db9c;
+      --lavender:#e9ccff;
+      --ember:#fb4903;
+      --sun:#ffd731;
+      --violet:#5c4ade;
+
+      --font-ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --max:1440px;
+      --unit:4px;
+      --radius-card:20px;
+      --radius-soft:30px;
+      --radius-pill:1600px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--carbon);
+      background:var(--paper);
+      font-family:var(--font-ui);
+      font-size:16px;
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit}
+    button,a{font:inherit}
+    a:focus-visible,button:focus-visible{
+      outline:3px solid var(--violet);
+      outline-offset:3px;
+    }
+
+    .marquee{
+      background:var(--carbon);
+      color:var(--paper);
+      min-height:40px;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      border-bottom:1px solid var(--carbon);
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:.032em;
+      text-transform:uppercase;
+    }
+    .marquee-track{
+      display:flex;
+      width:max-content;
+      animation:scroll 24s linear infinite;
+      white-space:nowrap;
+    }
+    .marquee span{padding-right:48px}
+    @keyframes scroll{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .marquee-track{animation:none}
+    }
+
+    .site-nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--carbon);
+      padding:12px 16px;
+    }
+    .nav-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:48px;height:48px;min-width:48px;
+      display:grid;place-items:center;
+      border:2px solid var(--carbon);
+      border-radius:50%;
+      background:var(--paper);
+      font-size:22px;
+      font-weight:900;
+      text-decoration:none;
+    }
+    .nav-links{
+      display:none;
+      flex:1;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 14px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--paper);
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:.02em;
+      text-decoration:none;
+    }
+    .nav-cta{
+      margin-left:auto;
+      min-height:48px;
+      padding:10px 18px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--carbon);
+      color:var(--paper);
+      font-size:16px;
+      font-weight:800;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .section{
+      position:relative;
+      overflow:hidden;
+      min-height:72vh;
+      padding:72px 20px;
+    }
+    .section-inner{
+      position:relative;
+      z-index:2;
+      max-width:var(--max);
+      margin:0 auto;
+    }
+    .sky{background:var(--sky)}
+    .white{background:var(--paper)}
+    .gray{background:var(--gray)}
+
+    .hero{
+      min-height:calc(100vh - 90px);
+      display:flex;
+      align-items:center;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:36px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      min-height:44px;
+      padding:8px 14px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--sun);
+      font-weight:900;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .display{
+      margin:18px 0 12px;
+      max-width:900px;
+      font-size:clamp(56px,13vw,150px);
+      line-height:.78;
+      letter-spacing:-.04em;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+    .hero-subtitle{
+      max-width:800px;
+      margin:0;
+      font-size:clamp(20px,3vw,32px);
+      line-height:1.18;
+      font-weight:700;
+    }
+    .hero-copy{
+      max-width:760px;
+      margin:18px 0 0;
+      font-size:18px;
+    }
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
+    }
+    .primary{
+      min-height:52px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 22px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--carbon);
+      color:var(--paper);
+      font-weight:900;
+      text-decoration:none;
+    }
+    .secondary{
+      min-height:52px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 22px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--paper);
+      font-weight:900;
+      text-decoration:none;
+    }
+
+    .sticker{
+      position:absolute;
+      z-index:1;
+      display:grid;
+      place-items:center;
+      border:2px solid var(--carbon);
+      border-radius:20px;
+      width:72px;height:72px;
+      font-weight:900;
+      user-select:none;
+    }
+    .sticker.one{background:var(--ember);right:7%;top:12%;transform:rotate(9deg)}
+    .sticker.two{background:var(--mint);right:18%;bottom:13%;transform:rotate(-11deg)}
+    .sticker.three{background:var(--violet);color:var(--paper);left:4%;bottom:10%;transform:rotate(8deg)}
+
+    .ribbon{
+      position:absolute;
+      z-index:0;
+      pointer-events:none;
+      opacity:.95;
+    }
+    .ribbon.hero-ribbon{width:58%;right:-5%;top:8%}
+    .ribbon.bottom-ribbon{width:70%;left:-10%;bottom:2%}
+
+    .section-label{
+      display:inline-block;
+      margin:0 0 14px;
+      padding:8px 14px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--paper);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+    .section-title{
+      margin:0 0 20px;
+      max-width:980px;
+      font-size:clamp(44px,8vw,96px);
+      line-height:.85;
+      letter-spacing:-.04em;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+    .lead{
+      max-width:900px;
+      font-size:19px;
+      line-height:1.5;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+      margin-top:36px;
+    }
+    .card{
+      padding:24px;
+      border:2px solid var(--carbon);
+      border-radius:var(--radius-card);
+      background:var(--paper);
+    }
+    .card.mint{background:var(--mint)}
+    .card.lavender{background:var(--lavender)}
+    .card.yellow{background:var(--sun)}
+    .card.violet{background:var(--violet);color:var(--paper)}
+    .card.orange{background:var(--ember);color:var(--paper)}
+    .card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1.15;
+    }
+    .card p{margin:0;font-size:17px}
+    .number{
+      display:inline-grid;
+      place-items:center;
+      width:44px;height:44px;
+      margin-bottom:16px;
+      border:2px solid currentColor;
+      border-radius:50%;
+      font-weight:900;
+    }
+
+    .timeline{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      margin-top:36px;
+    }
+    .step{
+      border:2px solid var(--carbon);
+      border-radius:var(--radius-card);
+      padding:20px;
+      background:var(--paper);
+    }
+    .step strong{
+      display:block;
+      font-size:22px;
+      line-height:1.1;
+      margin-bottom:8px;
+    }
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border:1px solid var(--carbon);
+      border-radius:var(--radius-pill);
+      background:var(--lavender);
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .results-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:20px;
+      margin-top:36px;
+    }
+    .score{
+      border:2px solid var(--carbon);
+      border-radius:40px;
+      background:var(--paper);
+      padding:28px;
+      text-align:center;
+    }
+    .score-number{
+      display:block;
+      font-size:clamp(72px,15vw,150px);
+      line-height:.8;
+      font-weight:900;
+      letter-spacing:-.05em;
+    }
+    .score-label{
+      display:block;
+      margin-top:18px;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .limitations{
+      margin-top:20px;
+      padding:20px;
+      border:2px solid var(--carbon);
+      border-radius:var(--radius-card);
+      background:var(--paper);
+    }
+    .limitations h3{margin:0 0 8px;font-size:24px}
+    .limitations ul{margin:0;padding-left:22px}
+    .limitations li{margin:8px 0;font-size:17px}
+
+    .conclusion{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:20px;
+      align-items:start;
+    }
+    .quote-card{
+      padding:28px;
+      border:2px solid var(--carbon);
+      border-radius:40px;
+      background:var(--violet);
+      color:var(--paper);
+    }
+    .quote-card p{
+      margin:0;
+      font-size:clamp(24px,4vw,42px);
+      line-height:1.05;
+      font-weight:900;
+    }
+    .footer{
+      background:var(--carbon);
+      color:var(--paper);
+      padding:40px 20px;
+    }
+    .footer-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      font-size:16px;
+    }
+    .footer p{margin:6px 0}
+
+    /* SVGs use solid fills only: no external imagery and no gradients. */
+    @media (min-width:760px){
+      .site-nav{padding:12px 24px}
+      .nav-links{display:flex}
+      .section{padding:96px 40px}
+      .hero-grid{grid-template-columns:1.15fr .85fr;gap:56px}
+      .cards{grid-template-columns:repeat(3,1fr)}
+      .timeline{grid-template-columns:repeat(2,1fr)}
+      .results-grid{grid-template-columns:.7fr 1.3fr}
+      .conclusion{grid-template-columns:1fr 1fr}
+    }
+
+    @media (min-width:1100px){
+      .hero-grid{grid-template-columns:1.25fr .75fr}
+      .cards{gap:20px}
+      .timeline{grid-template-columns:repeat(4,1fr)}
+    }
+
+    @media (max-width:600px){
+      .marquee-track{animation-duration:32s}
+      .nav-cta{padding-inline:14px}
+      .section{padding:68px 16px}
+      .hero{min-height:auto}
+      .display{font-size:clamp(52px,17vw,88px)}
+      .section-title{font-size:clamp(42px,14vw,72px)}
+      .sticker{width:60px;height:60px}
+      .sticker.one{right:5%;top:6%}
+      .sticker.two{right:6%;bottom:8%}
+      .sticker.three{left:2%;bottom:6%}
+      .ribbon.hero-ribbon{width:90%;right:-24%;top:10%}
+      .ribbon.bottom-ribbon{width:110%;left:-28%;bottom:4%}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- EDITAR AQUÍ: textos, datos y enlaces de la página. Esta zona es visible y puede editarse sin cambiar la estructura técnica. -->
+
+  <div class="marquee" aria-label="Información del estudio">
+    <div class="marquee-track">
+      <span>JDMOTORS · SCRUM · BRAINSTORMING · ROLE PLAYING · SUS · COMUNICACIÓN · COORDINACIÓN · </span>
+      <span aria-hidden="true">JDMOTORS · SCRUM · BRAINSTORMING · ROLE PLAYING · SUS · COMUNICACIÓN · COORDINACIÓN · </span>
+    </div>
+  </div>
+
+  <nav class="site-nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="logo" href="#inicio" aria-label="Ir al inicio">J</a>
+      <div class="nav-links">
+        <a class="pill" href="#problema">Problema</a>
+        <a class="pill" href="#metodologia">Metodología</a>
+        <a class="pill" href="#hallazgos">Hallazgos</a>
+        <a class="pill" href="#conclusiones">Conclusiones</a>
+      </div>
+      <a class="nav-cta" href="#hallazgos">Ver hallazgos</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="inicio" class="section sky hero" aria-labelledby="titulo-principal">
+      <svg class="ribbon hero-ribbon" viewBox="0 0 800 360" aria-hidden="true">
+        <path d="M45 250 C150 30 280 40 350 170 C420 300 560 320 745 105" fill="none" stroke="#4da2ff" stroke-width="72" stroke-linecap="round"/>
+        <path d="M45 250 C150 30 280 40 350 170 C420 300 560 320 745 105" fill="none" stroke="#000000" stroke-width="76" stroke-linecap="round" opacity=".12"/>
+      </svg>
+      <div class="sticker one" aria-hidden="true">+</div>
+      <div class="sticker two" aria-hidden="true">✓</div>
+      <div class="sticker three" aria-hidden="true">J</div>
+
+      <div class="section-inner hero-grid">
+        <div>
+          <span class="eyebrow">Investigación · Ingeniería de software</span>
+          <h1 id="titulo-principal" class="display">JDMOTORS</h1>
+          <p class="hero-subtitle">Colaboración y comunicación en equipos ágiles de desarrollo de software</p>
+          <p class="hero-copy">Evidencia empírica de un proyecto académico desarrollado con Scrum y técnicas colaborativas.</p>
+          <div class="actions">
+            <a class="primary" href="#hallazgos">Ver los hallazgos</a>
+            <a class="secondary" href="#metodologia">Conocer la metodología</a>
+          </div>
+        </div>
+
+        <aside class="card lavender" aria-label="Ficha del estudio">
+          <div class="number">01</div>
+          <h2>¿Qué se estudió?</h2>
+          <p>La aplicación de estrategias colaborativas durante el desarrollo del Sistema de Gestión para la Concesionaria JDMOTORS.</p>
+          <p><strong>Participantes:</strong> 5 integrantes del equipo.</p>
+          <p><strong>Marco:</strong> Scrum en un contexto académico universitario.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="problema" class="section white" aria-labelledby="titulo-problema">
+      <div class="section-inner">
+        <span class="section-label">02 · Problema y objetivo</span>
+        <h2 id="titulo-problema" class="section-title">El reto es coordinar</h2>
+        <p class="lead">El estudio parte de dificultades relacionadas con el intercambio de información, el reparto de labores, la coordinación y la toma de decisiones en equipos de desarrollo. La investigación analiza cómo las estrategias colaborativas pueden contribuir al trabajo del equipo y documenta su aplicación en un entorno académico.</p>
+
+        <div class="cards">
+          <article class="card mint">
+            <div class="number">A</div>
+            <h3>Comunicación</h3>
+            <p>Se analizó la comunicación entre los miembros del equipo y las estrategias utilizadas para resolver problemas.</p>
+          </article>
+          <article class="card yellow">
+            <div class="number">B</div>
+            <h3>Coordinación</h3>
+            <p>Se observaron la asignación de responsabilidades y la coordinación durante los sprints.</p>
+          </article>
+          <article class="card lavender">
+            <div class="number">C</div>
+            <h3>Trabajo colaborativo</h3>
+            <p>Se estudiaron Brainstorming y Role Playing como técnicas integradas al marco Scrum.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodologia" class="section gray" aria-labelledby="titulo-metodologia">
+      <svg class="ribbon bottom-ribbon" viewBox="0 0 900 300" aria-hidden="true">
+        <path d="M30 190 C170 30 310 80 430 185 C560 300 720 270 870 80" fill="none" stroke="#4da2ff" stroke-width="64" stroke-linecap="round"/>
+      </svg>
+
+      <div class="section-inner">
+        <span class="section-label">03 · Metodología</span>
+        <h2 id="titulo-metodologia" class="section-title">Del requisito al sprint</h2>
+        <p class="lead">El estudio combinó revisión sistemática de literatura, desarrollo con Scrum, entrevistas semiestructuradas, análisis documental y técnicas de aprendizaje colaborativo.</p>
+
+        <div class="timeline">
+          <article class="step">
+            <span class="tag">Revisión</span>
+            <strong>241 → 22 → 7</strong>
+            <p>Se identificaron 241 registros. 22 fueron revisados en detalle y 7 cumplieron los criterios de selección.</p>
+          </article>
+          <article class="step">
+            <span class="tag">Scrum</span>
+            <strong>4 sprints</strong>
+            <p>El proyecto se organizó en cuatro sprints de cuatro semanas, con planificación, seguimiento, revisión y retrospectiva.</p>
+          </article>
+          <article class="step">
+            <span class="tag">Brainstorming</span>
+            <strong>4 sesiones</strong>
+            <p>Se realizaron al inicio de cada Sprint para identificar y discutir requisitos y funcionalidades.</p>
+          </article>
+          <article class="step">
+            <span class="tag">Role Playing</span>
+            <strong>Escenarios de uso</strong>
+            <p>Se aplicó al finalizar cada Sprint para simular perfiles y validar requerimientos y escenarios.</p>
+          </article>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="number">5</div>
+            <h3>Entrevistas</h3>
+            <p>Participaron un Scrum Master, un Product Owner y tres desarrolladores. Cada entrevista duró aproximadamente 30–40 minutos.</p>
+          </article>
+          <article class="card violet">
+            <div class="number">8</div>
+            <h3>Artefactos</h3>
+            <p>Se analizaron Product Backlog, Sprint Backlogs, actas Scrum, historias de usuario, cronograma, incidencias, requisitos y documentación técnica.</p>
+          </article>
+          <article class="card orange">
+            <div class="number">10</div>
+            <h3>Usuarios SUS</h3>
+            <p>La evaluación de usabilidad del producto final se realizó con 10 usuarios externos al equipo de desarrollo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="hallazgos" class="section sky" aria-labelledby="titulo-hallazgos">
+      <div class="section-inner">
+        <span class="section-label">04 · Hallazgos</span>
+        <h2 id="titulo-hallazgos" class="section-title">Lo que se observó</h2>
+        <p class="lead">Los resultados documentan cambios en requisitos, backlog, organización y coordinación. Se interpretan como evidencia descriptiva del contexto específico del proyecto, no como evidencia causal.</p>
+
+        <div class="results-grid">
+          <div class="score">
+            <span class="score-number">84.5</span>
+            <span class="score-label">Promedio SUS del producto final</span>
+          </div>
+
+          <div>
+            <article class="card mint">
+              <h3>Brainstorming</h3>
+              <p>Facilitó la identificación y priorización de requisitos. También se documentó la simplificación de la navegación y la organización del Product Backlog.</p>
+            </article>
+            <article class="card lavender" style="margin-top:16px">
+              <h3>Role Playing</h3>
+              <p>Permitió simular distintos perfiles y escenarios. Se identificaron oportunidades de mejora en clientes, inventario y ventas y se refinaron requisitos.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="limitations">
+          <h3>Interpretación y límites</h3>
+          <ul>
+            <li>No se incorporó un grupo de control ni una medición pretest-postest.</li>
+            <li>El estudio no permite atribuir estadísticamente las mejoras exclusivamente a las técnicas colaborativas.</li>
+            <li>El tamaño reducido de la muestra y el contexto académico limitan la aplicación de los resultados a escenarios comerciales reales.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusiones" class="section white" aria-labelledby="titulo-conclusiones">
+      <div class="section-inner conclusion">
+        <div>
+          <span class="section-label">05 · Conclusiones</span>
+          <h2 id="titulo-conclusiones" class="section-title">Colaborar también es desarrollar</h2>
+          <p class="lead">La integración de Scrum con técnicas colaborativas se relacionó con mejoras documentadas en la coordinación, la comunicación y la participación del equipo durante el desarrollo del sistema.</p>
+          <p class="lead">El estudio señala que Brainstorming facilitó la identificación y priorización de requisitos, mientras que Role Playing permitió validar escenarios de uso e identificar oportunidades de mejora.</p>
+        </div>
+        <aside class="quote-card">
+          <p>Los hallazgos son evidencia descriptiva del contexto específico del proyecto y no permiten establecer relaciones causales ni generalizar los resultados a otros contextos.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p><strong>JDMOTORS · Estudio académico</strong></p>
+      <p>R. Aguirre, N. Rodríguez, R. García y L. Llerena.</p>
+      <p>Fuente de contenido: manuscrito proporcionado para esta página.</p>
+      <p>Sin financiación externa.</p>
+    </div>
+  </footer>
+  <!-- NO TOCAR DESDE AQUÍ: comportamiento opcional. -->
+  <script>
+    /* NO TOCAR DESDE AQUÍ: comportamiento opcional y no esencial. */
+    document.documentElement.classList.add('js-activo');
+  </script>
+</body>
+</html>
